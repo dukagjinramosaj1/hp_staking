@@ -42,7 +42,11 @@ In the root directory of the project run (docker needs to be installed and start
 ```
 sudo docker-compose -f docker-compose.yml up --build
 ```
-#### Project Overview:
+
+
+### Project Overview:
+### Please find at the root of this directory the hmt_architecture.png and Staking_Escrow.png for understanding the data flow
+
 ### Smart Contracts: Features of the Staking Contract
   - **Staking** makes you automatically a validator/stakeholder,  you need to stake some amount of (wei, gwei, ether..etc) there is no time related implementation or epoch)  
      - The stake is automatically added to the Smart Contract balance and keeps track of the deposits made from each stakeholder. 
