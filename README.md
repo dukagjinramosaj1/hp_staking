@@ -67,7 +67,7 @@ http://0.0.0.0:8080/stake/
  ```
 http://0.0.0.0:8080/escrow/
  ```
- Example call: http://0.0.0.0:8080/stake/?amount=100
+ Example call: http://0.0.0.0:8080/escrow/
 
 
 Future work (not included for this Technical Challenge):  
