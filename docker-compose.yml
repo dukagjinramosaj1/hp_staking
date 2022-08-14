@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+    
+  api:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #command:  /bin/bash -c "sleep 30; python3 ./manage.py runserver 0.0.0.0:8000"
+    #command: gunicorn mvc.wsgi:application --bind 0.0.0.0:8080
+    command: /bin/bash -c "gunicorn hp_staking.wsgi:application --bind 0.0.0.0:8080 --workers 8 --threads 8  --reload --timeout 90"
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - .:/code 
+    ports:
+      - "8080:8080" # expose:
+
+  ganache:
+    image: trufflesuite/ganache-cli:latest
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./ganache_data:/ganache_data
+    entrypoint:
+      - node
+      - /app/ganache-core.docker.cli.js
+      - --deterministic
+      - --db=/ganache_data
+      - --mnemonic
+      - 'fury theory split solid slam enemy holiday assist ladder point mammal swarm'
+      - --networkId
+      - '1337'
+      - --hostname
+      - '0.0.0.0'
+
+volumes:
+  static_volume:
