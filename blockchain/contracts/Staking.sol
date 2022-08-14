@@ -95,7 +95,7 @@ contract Staking {
         balanceOf[address(this)] += amountSlashed;
     }
 
-    function rewards(address _account) public  {
+    function rewards(address _account) public  onlyOwner{
         //Check if this participant is in the list of bad actors;
         require(!validCandidate(_account), "This candidate is not in penalty list of participants");
         uint rewardAmount = 5 wei;
@@ -124,7 +124,15 @@ contract Staking {
         _;
     }
 
-
+ // Modifier to check that the caller is the owner of
+    // the contract.
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        // Underscore is a special character only used inside
+        // a function modifier and it tells Solidity to
+        // execute the rest of the code.
+        _;
+    }
     // function getBalance(address _stakeholder) public view returns (uint){
     //     return balanceOf[_stakeholder];
     // }

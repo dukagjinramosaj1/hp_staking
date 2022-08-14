@@ -52,7 +52,7 @@ sudo docker-compose -f docker-compose.yml up --build
   - **Rewards**: Rewards can be given to other participants taken from the Smart Contract balance which serves as pool 
   
 ### API Endpoints: Web server runs on 0.0.0.0:8080
-Deploying Contracts: 
+Deploying Contracts: **It returns the Contract's Address, use it for calling other API endpoints**  
 ```
 http://0.0.0.0:8080/deployEscrowFactory/
  ```

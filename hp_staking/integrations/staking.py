@@ -6,14 +6,15 @@ import requests
 from urllib.request import urlopen
 
 # to interact with the blockchain
-GANACHE = "http://ganache:8545"
+# GANACHE = "http://ganache:8545"
+GANACHE = "http://0.0.0.0:8545"
 
 MNEMONIC = 'fury theory split solid slam enemy holiday assist ladder point mammal swarm'
 
 web3 =  Web3(Web3.HTTPProvider(GANACHE))
 #  Path to the compiled contract JSON file
-compiled_contract_path_HMtoken = './blockchain/build/contracts/HMToken.json'
-compiled_contract_path_EscrowFactory = './blockchain/build/contracts/EscrowFactory.json'
+compiled_contract_path_HMtoken = '../../blockchain/build/contracts/HMToken.json'
+compiled_contract_path_EscrowFactory = '../../blockchain/build/contracts/EscrowFactory.json'
 
 with open(compiled_contract_path_HMtoken) as file_HMT:
     contract_json_HMT = json.load(file_HMT)  # load contract info as JSON
@@ -91,18 +92,20 @@ def deployEscrowFactory_Contract(HMTcontractAddress):
     send_txn = web3.eth.sendRawTransaction(signed_txn.rawTransaction)
     #we wait for the transaction to be mined and get the Receipt back
     txn_receipt = web3.eth.waitForTransactionReceipt(send_txn)
+    #GET contract address:
+    contractAddress = txn_receipt.contractAddress
     #Get the transaction Hash from the receipt
     tx_hash = web3.toHex(txn_receipt.transactionHash)
     #returns the transaction hash to be checked on EtherScan
-    return tx_hash
+    return contractAddress
 
 
-def staking(amount):
+def staking(amount, contract_address):
     
     owner_address = '0x09bb04643ED3F73E4B3998FBb57Fd790296DB558'
     private_key = '0x0af00197abc3998c2353f1c33d2e4287c34336cac54cd10b39fa465e51fe3f16'
     #we need the contract deployment address
-    deployed_contract_address = "0x2739de06e898007dc7223c0c622bf1e7d8cef864"
+    deployed_contract_address = contract_address
 
     contract_instance = web3.eth.contract(address=Web3.toChecksumAddress(deployed_contract_address),abi=contract_abi)
 
@@ -132,13 +135,13 @@ def staking(amount):
     #returns the transaction hash to be checked on EtherScan
     return send_txn.hex()
 
-def escrow(trustedHandlers):
+def escrow(trustedHandlers,contract_address):
     
     owner_address = '0x09bb04643ED3F73E4B3998FBb57Fd790296DB558'
     private_key = '0x0af00197abc3998c2353f1c33d2e4287c34336cac54cd10b39fa465e51fe3f16'
     
     #we need the contract deployment address
-    deployed_contract_address = "0x2739de06e898007dc7223c0c622bf1e7d8cef864"
+    deployed_contract_address = contract_address
 
     contract_instance = web3.eth.contract(address=Web3.toChecksumAddress(deployed_contract_address),abi=contract_abi)
 
@@ -186,3 +189,5 @@ def get_stakeholder():
 
     return stakeholderInstance
 
+stakeholder = get_stakeholder()
+print("STAKE HOLDER ", stakeholder)
