@@ -1,4 +1,4 @@
-# This is the back-end implementation of the AFTS platform.
+# This is the back-end implementation of the HMT Technical challenge.
 
 ## SETUP:
 
