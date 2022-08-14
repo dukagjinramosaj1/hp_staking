@@ -45,7 +45,7 @@ sudo docker-compose -f docker-compose.yml up --build
 
 
 ### Project Overview:
-### Please find at the root of this directory the hmt_architecture.png and Staking_Escrow.png for understanding the data flow
+### Please find at the root of this directory the architecture.png and Staking_Escrow.png for understanding the data flow
 
 ### Smart Contracts: Features of the Staking Contract
   - **Staking** makes you automatically a validator/stakeholder,  you need to stake some amount of (wei, gwei, ether..etc) there is no time related implementation or epoch)  
